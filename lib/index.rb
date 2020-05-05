@@ -36,7 +36,50 @@ def all_pages_read(library)
   }
 end 
 
+#returns an array of all unique genres in the libray excluding 
+def all_genres(library)
+  genre_array = []
+  library.each { |book| 
+    book[:genres].each{ |genre|
+      if !genre_array.include?(genre)
+        genre_array << genre
+      end 
+    }
+  }
+  genre_array
+end 
 
+
+#returns an array of hashes of all the books read
+def books_read(library) 
+  booksRead = []
+  library.each { |book|
+    if book[:completed]
+      booksRead << book
+    end 
+  }
+  booksRead
+end 
+
+#Prints number of books and pages read
+def completed_books_detail(library)
+  numBooksRead = books_read(library).size 
+  numPagesRead = all_pages_read(library)
+  
+  puts "I've read #{numBooksRead} books, totaling at #{numPagesRead} pages"
+end 
+
+#Returns an array of strings containing the title and author of each book
+def books_in_library(library)
+  titleArray = []
+  library.each { |book|
+    bookTitle = "#{book[:title]} by #{book[:author]}"
+    titleArray.push(bookTitle)
+  }
+  titleArray
+end 
+
+p books_in_library(library)
 
 # WRITE CODE ABOVE HERE
 
