@@ -18,12 +18,29 @@ library = [
 
 # WRITE CODE BELOW HERE
 
+#returns the number of pages of all books in the library 
+def all_pages(library)
+  library.reduce(0){ |sum, book|
+   sum + book[:pages]
+  }
+end 
+
+#returns the numbe of pages read 
+def all_pages_read(library)
+  library.reduce(0){ |totalPagesRead, book|
+   if book[:completed]
+    totalPagesRead + book[:pages] 
+   else 
+    totalPagesRead 
+   end 
+  }
+end 
 
 
 
 # WRITE CODE ABOVE HERE
 
 
-binding.pry
+#binding.pry
 
-puts "Books!"
+#puts "Books!"
