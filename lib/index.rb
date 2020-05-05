@@ -124,9 +124,48 @@ def highest_page_count(library)
   }
 end 
 
+#Returns an array of strings containing  shortest amount of books.  
+#The amount of books returned is equivent to the second argument
+def recommended_books(library, num)
+  num_shortest_books = []
+  ordered_books = library.sort_by{ |book|
+  book[:pages]
+  } 
+  i = 0
+  until i == num 
+    title = "You should read #{ordered_books[i][:title]} by #{ordered_books[i][:author]}; it's only #{ordered_books[i][:pages]} pages long!"
+    num_shortest_books << title
+    i += 1 
+  end 
+  num_shortest_books
+end 
 
 
+#Returns an array of books with the likedGenere first, followed by other books
+#books with hatedGenre are not included 
+def recommended_books_by_genre(library, likedGenere, hatedGenre)
+  liked_books = []
+  recommended_books = []
+  library.each { |book|
+    book[:genres].each{ |genre|
+      if genre == likedGenere
+        text = "Since you like #{likedGenere}, you should read #{book[:title]} by #{book[:author]}!"
+        if !recommended_books.include?(text)
+          liked_books << text 
+        end  
+      elsif genre != hatedGenre
+        text = "I also recommend #{book[:title]} by #{book[:author]}!"
+        if !recommended_books.include?(text)
+          recommended_books << text 
+        end  
+      end 
+    }
+  }
+  liked_books.concat(recommended_books)
+end 
 
+
+puts recommended_books_by_genre(library, "Fantasy", "Romance")
 # WRITE CODE ABOVE HERE
 
 
