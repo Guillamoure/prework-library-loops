@@ -79,7 +79,53 @@ def books_in_library(library)
   titleArray
 end 
 
-p books_in_library(library)
+
+#Returns an array of strings containing the title and author ordered by publication date
+def books_by_year(library)
+  ordered_books = library.sort_by{ |book|
+      book[:publication_year]
+  } 
+  books_in_library(ordered_books)
+end 
+
+#Returns an arry of hashes of books that have subtitles 
+def books_with_subtitles(library)
+  subtitledBooks = []
+  library.each { |book|
+    if book[:title].include? ";"
+        subtitledBooks << book
+    end 
+  }
+  subtitledBooks
+end 
+
+#returns an array of book titles.  If book has subtitle, it only returns the first title 
+def books_primary_title(library)
+  bookTitles = []
+  library.each { |book|
+    index = book[:title].index(";")  
+    if index
+      title = book[:title][0...index]
+      bookTitles << title
+    else 
+      bookTitles << book[:title]
+    end 
+  }
+  bookTitles 
+end 
+
+#returns a hash of the longest book
+def highest_page_count(library)
+  library.reduce({pages: 0}) { |longestBook, book|
+      if book[:pages] > longestBook[:pages]
+        longestBook = book 
+      end 
+      longestBook
+  }
+end 
+
+
+
 
 # WRITE CODE ABOVE HERE
 
