@@ -18,12 +18,153 @@ library = [
 
 # WRITE CODE BELOW HERE
 
+#returns the number of pages of all books in the library 
+def all_pages(library)
+  library.reduce(0){ |sum, book|
+   sum + book[:pages] 
+  }
+end 
+
+#returns the numbe of pages read 
+def all_pages_read(library)
+  library.reduce(0){ |totalPagesRead, book|
+   if book[:completed]
+    totalPagesRead + book[:pages] 
+   else 
+    totalPagesRead 
+   end 
+  }
+end 
+
+#returns an array of all unique genres in the libray excluding 
+def all_genres(library)
+  genre_array = []
+  library.each { |book| 
+    book[:genres].each{ |genre|
+      if !genre_array.include?(genre)
+        genre_array << genre
+      end 
+    }
+  }
+  genre_array
+end 
+
+
+#returns an array of hashes of all the books read
+def books_read(library) 
+  booksRead = []
+  library.each { |book|
+    if book[:completed]
+      booksRead << book
+    end 
+  }
+  booksRead
+end 
+
+#Prints number of books and pages read
+def completed_books_detail(library)
+  numBooksRead = books_read(library).size 
+  numPagesRead = all_pages_read(library)
+  
+  puts "I've read #{numBooksRead} books, totaling at #{numPagesRead} pages"
+end 
+
+#Returns an array of strings containing the title and author of each book
+def books_in_library(library)
+  titleArray = []
+  library.each { |book|
+    bookTitle = "#{book[:title]} by #{book[:author]}"
+    titleArray.push(bookTitle)
+  }
+  titleArray
+end 
+
+
+#Returns an array of strings containing the title and author ordered by publication date
+def books_by_year(library)
+  ordered_books = library.sort_by{ |book|
+      book[:publication_year]
+  } 
+  books_in_library(ordered_books)
+end 
+
+#Returns an arry of hashes of books that have subtitles 
+def books_with_subtitles(library)
+  subtitledBooks = []
+  library.each { |book|
+    if book[:title].include? ";"
+        subtitledBooks << book
+    end 
+  }
+  subtitledBooks
+end 
+
+#returns an array of book titles.  If book has subtitle, it only returns the first title 
+def books_primary_title(library)
+  bookTitles = []
+  library.each { |book|
+    index = book[:title].index(";")  
+    if index
+      title = book[:title][0...index]
+      bookTitles << title
+    else 
+      bookTitles << book[:title]
+    end 
+  }
+  bookTitles 
+end 
+
+#returns a hash of the longest book
+def highest_page_count(library)
+  library.reduce({pages: 0}) { |longestBook, book|
+      if book[:pages] > longestBook[:pages]
+        longestBook = book 
+      end 
+      longestBook
+  }
+end 
+
+#Returns an array of strings containing  shortest amount of books.  
+#The amount of books returned is equivent to the second argument
+def recommended_books(library, num)
+  num_shortest_books = []
+  ordered_books = library.sort_by{ |book|
+  book[:pages]
+  } 
+  i = 0
+  until i == num 
+    title = "You should read #{ordered_books[i][:title]} by #{ordered_books[i][:author]}; it's only #{ordered_books[i][:pages]} pages long!"
+    num_shortest_books << title
+    i += 1 
+  end 
+  num_shortest_books
+end 
+
+
+#Returns an array of books with the likedGenere first, followed by other books
+#books with hatedGenre are not included 
+def recommended_books_by_genre(library, likedGenere, hatedGenre)
+  liked_books = []
+  recommended_books = []
+  library.each { |book|
+      if book[:genres].include?(likedGenere) && !book[:genres].include?(hatedGenre)    #check if a book includes a preferred genre and doesn't have the hated genre 
+        text = "Since you like #{likedGenere}, you should read #{book[:title]} by #{book[:author]}!"
+        liked_books << text
+      elsif !book[:genres].include?(hatedGenre)  
+        text = "I also recommend #{book[:title]} by #{book[:author]}."
+         recommended_books << text  
+      end 
+  }
+  liked_books.concat(recommended_books)
+  
+end 
+
 
 
 
 # WRITE CODE ABOVE HERE
 
 
-binding.pry
+#binding.pry
 
-puts "Books!"
+#puts "Books!"
