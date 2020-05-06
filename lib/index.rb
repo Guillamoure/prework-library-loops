@@ -21,7 +21,7 @@ library = [
 #returns the number of pages of all books in the library 
 def all_pages(library)
   library.reduce(0){ |sum, book|
-   sum + book[:pages]
+   sum + book[:pages] 
   }
 end 
 
@@ -147,25 +147,21 @@ def recommended_books_by_genre(library, likedGenere, hatedGenre)
   liked_books = []
   recommended_books = []
   library.each { |book|
-    book[:genres].each{ |genre|
-      if genre == likedGenere
+      if book[:genres].include?(likedGenere) && !book[:genres].include?(hatedGenre)    #check if a book includes a preferred genre and doesn't have the hated genre 
         text = "Since you like #{likedGenere}, you should read #{book[:title]} by #{book[:author]}!"
-        if !recommended_books.include?(text)
-          liked_books << text 
-        end  
-      elsif genre != hatedGenre
-        text = "I also recommend #{book[:title]} by #{book[:author]}!"
-        if !recommended_books.include?(text)
-          recommended_books << text 
-        end  
+        liked_books << text
+      elsif !book[:genres].include?(hatedGenre)  
+        text = "I also recommend #{book[:title]} by #{book[:author]}."
+         recommended_books << text  
       end 
-    }
   }
   liked_books.concat(recommended_books)
+  
 end 
 
 
-puts recommended_books_by_genre(library, "Fantasy", "Romance")
+
+
 # WRITE CODE ABOVE HERE
 
 
