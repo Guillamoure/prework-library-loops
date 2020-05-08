@@ -21,7 +21,7 @@ def all_pages(library)
 end
 
 def all_pages_read(library)
-
+  # THERES A PRETTIER WAY TO DO THIS!!!!!
   arr = Array.new
   library.each do |book|
     if book[:completed]
@@ -63,4 +63,11 @@ def books_in_library(library)
     arr << "#{book[:title]} by #{book[:author]}"
   end
   arr
+end
+
+def books_by_year(library)
+  sorted = library.sort_by do |book|
+    book[:publication_year]
+  end
+  books_in_library(sorted)
 end

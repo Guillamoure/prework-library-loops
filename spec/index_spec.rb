@@ -119,14 +119,14 @@ describe "Library:" do
   describe "#books_with_subtitles" do
     # arr = ["test element"]
     it "outputs an array of book hashes that have titles with a subtitle" do
-      # expect(books_with_subtitles(library)).to eq(arr)
+      expect(books_with_subtitles(library)).to eq(arr)
     end
   end
 
   describe "#books_primary_title" do
     # arr = ["test element"]
     it "outputs an array of book title strings. if the book title has a subtitle, only output the primary title" do
-      # expect(books_primary_title(library)).to eq(arr)
+      expect(books_primary_title(library)).to eq(arr)
     end
   end
 
@@ -146,11 +146,13 @@ describe "Library:" do
 
   describe "#recommended_books" do
     it "takes your library and a number as arguments, and outputs an array of strings. the number of strings in the array should be equal to the number argument. the strings are about books you are recommending from your entire library, organized by fewest page count to longest page count. e.g. if the number argument is 4, you should output the 4 shortest books." do
+      expect(recommended_books(library)).to eq(arr)
     end
   end
 
   describe "#recommended_books_by_genre" do
     it "takes your library, and two strings as arguments, and outputs an array of strings. the first string argument should be a genre that is preferred, and the second should be a genre that is not preferred. the array should be a list of recommendations, listing preferred genres first, followed by other books in your library. the books with genres that are not preferred should not be in the array" do
+      expect(recommended_books_by_genre(library)).to eq(arr)
     end
   end
 
