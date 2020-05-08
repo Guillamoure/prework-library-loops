@@ -16,14 +16,51 @@ library = [
   {title: "Gulliver's Travels; or, Travels into Several Remote Nations of the World. In Four Parts. By Kenuel Gulliverr, First a Sugeon, and tthen a Captain of Several Ships", author: "Jonathan Swift", genres: ["Political Satire", "Fantasy"], pages: 240, publication_year: 1726, completed: true}
 ]
 
-# WRITE CODE BELOW HERE
+def all_pages(library)
+  library.reduce(0) { |pages, book| pages + book[:pages] }
+end
 
+def all_pages_read(library)
 
+  arr = Array.new
+  library.each do |book|
+    if book[:completed]
+      arr << book
+    end
+  end
+  arr.reduce(0) { |pages, book| pages + book[:pages]}
+end
 
+def all_genres(library)
+  arr = Array.new
+  library.each do |book|
+    book[:genres].each do |genre|
+      if !arr.include?(genre)
+        arr << genre
+      end
+    end
+  end
+  arr
+end
 
-# WRITE CODE ABOVE HERE
+def books_read(library)
+  arr = Array.new
+  library.each do |book|
+    if book[:completed]
+      arr << book
+    end
+  end
+  arr
+end
 
+def completed_books_detail(library)
+  return "I've read #{books_read(library).count} books, totaling at #{all_pages_read(library)} pages."
+end
 
-binding.pry
-
-puts "Books!"
+def books_in_library(library)
+  arr = Array.new
+  library.each do |book|
+    arr << "#{book[:title]} by #{book[:author]}"
+  end
+  arr
+end
