@@ -21,7 +21,6 @@ def all_pages(library)
 end
 
 def all_pages_read(library)
-  # THERES A PRETTIER WAY TO DO THIS!!!!!
   arr = Array.new
   library.each do |book|
     if book[:completed]
@@ -70,4 +69,28 @@ def books_by_year(library)
     book[:publication_year]
   end
   books_in_library(sorted)
+end
+
+def books_with_subtitles(library)
+  arr = Array.new
+  library.each do |book|
+    if book[:title].include?(';')
+      arr << book
+    end
+  end
+  arr
+end
+
+def books_primary_title(library)
+  arr = Array.new
+  library.each do |book|
+    if !book[:title].include?(';') && !book[:title].include?(':')
+      arr << book[:title]
+    elsif book[:title].include?(';')
+      arr << book[:title].split(';').first
+    elsif book[:title].include?(':')
+      arr << book[:title].split(':').first
+    end
+  end
+  arr
 end

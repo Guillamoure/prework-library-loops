@@ -117,14 +117,32 @@ describe "Library:" do
   end
 
   describe "#books_with_subtitles" do
-    # arr = ["test element"]
+    arr = [
+      {:title=>"Slaughterhouse Five; or the Children's Crusade", :author=>"Kurt Vonnegut, Jr.", :genres=>["Satire", "Science Fiction"], :pages=>186, :publication_year=>1969, :completed=>false},
+      {:title=>"Frankenstein; or, the Modern Prometheus", :author=>"Mary Shelley", :genres=>["Gothic", "Horror", "Science Fiction"], :pages=>280, :publication_year=>1818, :completed=>true},
+      {:title=> "Gulliver's Travels; or, Travels into Several Remote Nations of the World. In Four Parts. By Kenuel Gulliverr, First a Surgeon, and then a Captain of Several Ships", :author=>"Jonathan Swift", :genres=>["Political Satire", "Fantasy"], :pages=>240, :publication_year=>1726, :completed=>true}
+    ]
     it "outputs an array of book hashes that have titles with a subtitle" do
       expect(books_with_subtitles(library)).to eq(arr)
     end
   end
 
   describe "#books_primary_title" do
-    # arr = ["test element"]
+    arr = [
+      "Dracula", 
+      "Slaughterhouse Five",
+      "Frankenstein",
+      "Circe",
+      "Inferno",
+      "Mastering the Art of French Cooking",
+      "Animal Farm",
+      "War and Peace",
+      "The Innovators",
+      "Twilight",
+      "The Life of Washington",
+      "The Travels of John Mandeville",
+      "Gulliver's Travels"
+    ]
     it "outputs an array of book title strings. if the book title has a subtitle, only output the primary title" do
       expect(books_primary_title(library)).to eq(arr)
     end
