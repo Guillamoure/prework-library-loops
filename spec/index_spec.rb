@@ -129,7 +129,7 @@ describe "Library:" do
 
   describe "#books_primary_title" do
     arr = [
-      "Dracula", 
+      "Dracula",
       "Slaughterhouse Five",
       "Frankenstein",
       "Circe",
@@ -149,30 +149,25 @@ describe "Library:" do
   end
 
   describe "#highest_page_count" do
-    hash = {
-      title: "War and Peace",
-      author: "Leo Tolstoy",
-      genres: ["Historical Fiction"],
-      pages: 1225,
-      publication_year: 1869,
-      completed: false
-    }
-    it "outputs the hash of the longest book, with the highest page count" do
-      expect(highest_page_count(library)).to eq(hash)
+    book_hash = {title: "War and Peace", author: "Leo Tolstoy", genres: ["Historical Fiction"], pages: 1225, publication_year: 1869, completed: false }
+    it "outputs the hash of the book with the highest page count" do
+      expect(highest_page_count(library)).to eq(book_hash)
     end
   end
 
   describe "#recommended_books" do
+    # need to create multiple sets for this test?
+    arr = ["You should read Animal Farm by George Orwell; It's only 112 pages long.", "You should read The Travels of John Mandeville by John Mandeville; It's only 167 pages long.", "You should read Slaughterhouse Five; or the Children's Crusade by Kurt Vonnegut, Jr.; It's only 186 pages long.", "You should read Gulliver's Travels; or, Travels into Several Remote Nations of the World. In Four Parts. By Kenuel Gulliverr, First a Surgeon, and then a Captain of Several Ships by Jonathan Swift; It's only 240 pages long.", "You should read Inferno by Dante Alighieri; It's only 261 pages long."]
     it "takes your library and a number as arguments, and outputs an array of strings. the number of strings in the array should be equal to the number argument. the strings are about books you are recommending from your entire library, organized by fewest page count to longest page count. e.g. if the number argument is 4, you should output the 4 shortest books." do
-      expect(recommended_books(library)).to eq(arr)
+      expect(recommended_books(library, 5)).to eq(arr)
     end
   end
 
   describe "#recommended_books_by_genre" do
+    arr = ["Since you like Horror, you should read Frankenstein; or, the Modern Prometheus by Mary Shelley!", "Since you like Horror, you should read Dracula by Bram Stoker!", "I also recommend War and Peace by Leo Tolstoy", "I also recommend The Travels of John Mandeville by John Mandeville", "I also recommend The Life of Washington by Mason Weems", "I also recommend The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution by Walter Isaacson", "I also recommend Slaughterhouse Five; or the Children's Crusade by Kurt Vonnegut, Jr.", "I also recommend Mastering the Art of French Cooking by Simone Beck, Louisette Bertholie, Julia Child", "I also recommend Inferno by Dante Alighieri", "I also recommend Gulliver's Travels; or, Travels into Several Remote Nations of the World. In Four Parts. By Kenuel Gulliverr, First a Surgeon, and then a Captain of Several Ships by Jonathan Swift", "I also recommend Circe by Madeline Miller", "I also recommend Animal Farm by George Orwell"]
     it "takes your library, and two strings as arguments, and outputs an array of strings. the first string argument should be a genre that is preferred, and the second should be a genre that is not preferred. the array should be a list of recommendations, listing preferred genres first, followed by other books in your library. the books with genres that are not preferred should not be in the array" do
-      expect(recommended_books_by_genre(library)).to eq(arr)
+      expect(recommended_books_by_genre(library, "Horror", "Romance")).to eq(arr)
     end
   end
-
 
 end
