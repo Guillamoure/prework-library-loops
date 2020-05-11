@@ -16,14 +16,112 @@ library = [
   {title: "Gulliver's Travels; or, Travels into Several Remote Nations of the World. In Four Parts. By Kenuel Gulliverr, First a Sugeon, and tthen a Captain of Several Ships", author: "Jonathan Swift", genres: ["Political Satire", "Fantasy"], pages: 240, publication_year: 1726, completed: true}
 ]
 
-# WRITE CODE BELOW HERE
+def all_pages(library)
+  # pages is the accumulator
+  library.reduce(0) { |pages, book| pages + book[:pages] }
+end
 
+def all_pages_read(library)
+  arr = Array.new
+  library.each do |book|
+    if book[:completed]
+      arr << book
+    end
+  end
+  arr.reduce(0) { |pages, book| pages + book[:pages]}
+end
 
+def all_genres(library)
+  arr = Array.new
+  library.each do |book|
+    book[:genres].each do |genre|
+      if !arr.include?(genre)
+        arr << genre
+      end
+    end
+  end
+  arr
+end
 
+def books_read(library)
+  arr = Array.new
+  library.each do |book|
+    if book[:completed]
+      arr << book
+    end
+  end
+  arr
+end
 
-# WRITE CODE ABOVE HERE
+def completed_books_detail(library)
+  return "I've read #{books_read(library).count} books, totaling at #{all_pages_read(library)} pages."
+end
 
+def books_in_library(library)
+  arr = Array.new
+  library.each do |book|
+    arr << "#{book[:title]} by #{book[:author]}"
+  end
+  arr
+end
 
-binding.pry
+def books_by_year(library)
+  sorted = library.sort_by do |book|
+    book[:publication_year]
+  end
+  books_in_library(sorted)
+end
 
-puts "Books!"
+def books_with_subtitles(library)
+  arr = Array.new
+  library.each do |book|
+    if book[:title].include?(';')
+      arr << book
+    end
+  end
+  arr
+end
+
+def books_primary_title(library)
+  arr = Array.new
+  library.each do |book|
+    if !book[:title].include?(';') && !book[:title].include?(':')
+      arr << book[:title]
+    elsif book[:title].include?(';')
+      arr << book[:title].split(';').first
+    elsif book[:title].include?(':')
+      arr << book[:title].split(':').first
+    end
+  end
+  arr
+end
+
+def highest_page_count(library)
+  library.reduce do |page_count, book|
+    page_count[:pages] > book[:pages] ? page_count : book
+    # like inject { |memo, obj| block } → obj
+  end
+end
+
+def recommended_books(library, num)
+  arr = Array.new
+  sorted = library.sort_by {|book| book[:pages]} # creates a new array, with animal farm up top
+  count = 0
+  while count < num
+    arr << "You should read #{sorted[count][:title]} by #{sorted[count][:author]}; it's only #{sorted[count][:pages]} pages long."
+    count += 1
+  end
+  arr
+end
+
+def recommended_books_by_genre(library, str1, str2)
+  arr = Array.new
+  library.each do |book|
+    if book[:genres].include?(str1)
+      arr << "Since you like #{str1}, you should read #{book[:title]} by #{book[:author]}!"
+    elsif !book[:genres].include?(str2)
+      arr << "I also recommend #{book[:title]} by #{book[:author]}"
+    end
+  end
+  arr.sort { |a,b| b <=> a} # sorts it... backwards alphabetically
+end
