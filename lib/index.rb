@@ -108,7 +108,7 @@ def recommended_books(library, num)
   sorted = library.sort_by {|book| book[:pages]} # creates a new array, with animal farm up top
   count = 0
   while count < num
-    arr << "You should read #{sorted[count][:title]} by #{sorted[count][:author]}; It's only #{sorted[count][:pages]} pages long."
+    arr << "You should read #{sorted[count][:title]} by #{sorted[count][:author]}; it's only #{sorted[count][:pages]} pages long."
     count += 1
   end
   arr
